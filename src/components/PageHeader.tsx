@@ -61,7 +61,7 @@ export default function PageHeader({
 
   const ctaInner = (
     <>
-      <span className="font-bold text-blue-700 text-[length:var(--text-h6)] tracking-[-0.3px] whitespace-nowrap">
+      <span className="font-bold text-blue-700 group-hover:text-white text-[length:var(--text-h6)] tracking-[-0.3px] whitespace-nowrap transition-colors">
         {cta?.text}
       </span>
       <Image
@@ -69,12 +69,13 @@ export default function PageHeader({
         alt=""
         width={20}
         height={20}
+        className="group-hover:brightness-0 group-hover:invert transition-all"
       />
     </>
   );
 
   const ctaClassName =
-    "bg-neutralgray-50 flex gap-2 items-center justify-center px-[26px] py-[13px] rounded-[8px] mt-2 shrink-0 hover:bg-blue-100 transition-colors";
+    "group bg-neutralgray-50 flex gap-2 items-center justify-center px-[26px] py-[13px] rounded-[8px] mt-2 shrink-0 hover:bg-blue-900 transition-colors";
 
   return (
     <div

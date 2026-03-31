@@ -245,7 +245,7 @@ export default function Header() {
                 className="
                   bg-[#086FED] text-white font-bold text-base leading-[1.25]
                   px-4 py-2 rounded
-                  hover:bg-[#0663C7] transition-colors
+                  hover:bg-blue-800 transition-colors
                 "
               >
                 Free Consultation

@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
 import TourCarousel from "@/components/TourCarousel";
+import InsuranceCardsClient from "@/components/InsuranceCardsClient";
+import HotelPriceToggle from "@/components/HotelPriceToggle";
 
 /* ─────────────────────────────────────────
    Shared helpers
@@ -434,21 +436,8 @@ function StepsSection() {
               </div>
             </StepCard>
 
-            {/* ── CTA Button ── */}
-            <div className="flex justify-center">
-              <div className="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-3 px-6 py-4 rounded-[16px] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1),0px_2px_4px_0px_rgba(0,0,0,0.1)]">
-                <p className="font-bold text-white text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px] whitespace-nowrap">
-                  See our Partner Hotel Price
-                </p>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <circle cx="12" cy="12" r="11" stroke="white" strokeWidth="1.5"/>
-                  <path d="M12 8v8M8 12l4 4 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-
-            {/* ── Partner Hotel Tables ── */}
-            <div className="flex flex-col gap-6">
+            {/* ── Partner Hotel Price Toggle ── */}
+            <HotelPriceToggle>
 
               {/* Le Collective (Urbanstay) */}
               <div className="bg-white border border-neutralgray-300 rounded-[12px] overflow-hidden shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]">
@@ -682,7 +671,7 @@ function StepsSection() {
                 </div>
               </div>
 
-            </div>
+            </HotelPriceToggle>
           </div>
         </div>
 
@@ -963,11 +952,11 @@ function StepsSection() {
               </p>
               {/* Post-Op Thursday */}
               <div className="bg-white/10 border border-white/10 rounded-xl p-6 flex flex-col gap-2">
-                <div className="flex gap-2 items-start">
-                  <p className="font-bold text-system-mint text-[length:var(--text-body-l)] leading-[1.45]">
+                <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-start">
+                  <p className="font-bold text-system-mint text-[length:var(--text-body-l)] leading-[1.45] shrink-0">
                     [Post-Op Thursday]
                   </p>
-                  <p className="font-bold text-white text-[length:var(--text-body-l)] leading-[1.45] flex-1">
+                  <p className="font-bold text-white text-[length:var(--text-body-l)] leading-[1.45]">
                     Global Hernia Recovery Session
                   </p>
                 </div>
@@ -979,7 +968,7 @@ function StepsSection() {
                 </p>
               </div>
               {/* Contacts + QR */}
-              <div className="flex gap-8 items-start">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="flex-1 flex flex-col gap-4">
                   <p className="font-bold text-white text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px]">
                     Anytime Support:
@@ -1048,7 +1037,7 @@ function CostSection() {
 
         <div className="flex flex-col md:flex-row gap-6 items-start">
           {/* Left: Package + Payment */}
-          <div className="flex flex-col gap-8 xl:gap-14 md:w-[480px] shrink-0">
+          <div className="flex flex-col gap-8 xl:gap-14 flex-1 min-w-0">
             {/* Package includes */}
             <div className="flex flex-col gap-4">
               <div className="flex gap-2 items-center">
@@ -1218,47 +1207,7 @@ function InsuranceSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            {
-              icon: "/assets/patient/icon-insurance1.svg",
-              title: "Gibbeum's Partner Support",
-            },
-            {
-              icon: "/assets/patient/icon-insurance2.svg",
-              title: "Frequently Used Plans",
-            },
-          ].map((card) => (
-            <div
-              key={card.title}
-              className="bg-white rounded-2xl p-6 flex flex-col gap-4 items-center text-center shadow-sm"
-            >
-              <div className="bg-blue-600 rounded-full size-16 flex items-center justify-center shrink-0">
-                <Image src={card.icon} alt="" width={32} height={32} />
-              </div>
-              <p className="font-bold text-blue-700 text-[length:var(--text-h6)] text-center leading-[1.45] tracking-[-0.3px]">
-                {card.title}
-              </p>
-              <div className="bg-slate-300 rounded-full px-5 py-2 flex items-center gap-1">
-                <span className="font-bold text-slate-900 text-[length:var(--text-body-16b)] leading-[1.25]">
-                  more
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                  className="size-4 text-slate-900"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-          ))}
-        </div>
+        <InsuranceCardsClient />
       </div>
     </section>
   );

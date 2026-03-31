@@ -17,7 +17,7 @@ export type TourItem = {
 
 function TourCard({ tour }: { tour: TourItem }) {
   return (
-    <div className="bg-white border border-neutralgray-400 rounded-[16px] flex flex-col items-start w-[320px] md:w-[376px] shrink-0 pb-8">
+    <div className="bg-white border border-neutralgray-400 rounded-[16px] flex flex-col items-start w-[270px] md:w-[376px] shrink-0 pb-8">
       {/* Photo */}
       <div className="relative h-[152px] w-full rounded-tl-[16px] rounded-tr-[16px] overflow-hidden bg-neutralgray-100">
         <Image src={tour.img} alt={tour.name} fill className="object-cover" />
@@ -124,7 +124,7 @@ export default function TourCarousel({ tours }: { tours: TourItem[] }) {
         className="overflow-x-auto pb-2 [&::-webkit-scrollbar]:hidden"
         style={{ scrollbarWidth: "none" }}
       >
-        <div className="flex gap-6" style={{ width: "max-content" }}>
+        <div className="flex gap-2" style={{ width: "max-content" }}>
           {tours.map((tour) => (
             <TourCard key={tour.name} tour={tour} />
           ))}

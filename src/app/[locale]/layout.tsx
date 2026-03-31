@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ConsultationModalProvider } from "@/context/ConsultationModalContext";
 import ConsultationModal from "@/components/ConsultationModal";
+import ShareButton from "@/components/ShareButton";
 import "../globals.css";
 
 const inter = Inter({
@@ -52,6 +53,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <ConsultationModalProvider>
             {children}
+            <ShareButton />
             <ConsultationModal />
           </ConsultationModalProvider>
         </NextIntlClientProvider>

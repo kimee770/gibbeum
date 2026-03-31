@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
@@ -403,8 +403,21 @@ function BottomBar() {
 
 /* ─── 메인 Footer ────────────────────────────────────── */
 export default function Footer() {
+  const { openModal } = useConsultationModal();
+  const [floatVisible, setFloatVisible] = useState(false);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setFloatVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <footer className="bg-[#101828] text-white">
+    <footer ref={footerRef} className="bg-[#101828] text-white">
       <div className="max-w-[1516px] mx-auto px-6 md:px-10 xl:px-[144px] py-[40px] md:py-[56px]">
 
         {/*
@@ -454,23 +467,66 @@ export default function Footer() {
         <div className="pt-[32px]" />
       </div>
 
-      {/* 플로팅 버튼 (Back to Top) */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="
-          fixed bottom-6 right-6 z-40
-          bg-neutralgray-900 hover:bg-neutralgray-800 transition-colors
-          size-[56px] rounded-full
-          flex items-center justify-center
-          shadow-lg
-        "
-        title="Back to Top"
-        aria-label="Back to top"
-      >
-        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
+      {/* 플로팅 메뉴 (WhatsApp / Free Consultation / Back to Top) */}
+      <div className={`fixed bottom-6 right-4 z-40 flex flex-col gap-3 items-end transition-all duration-300 ${floatVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
+        {/* WhatsApp */}
+        <div className="group flex items-center gap-2">
+          <span className="pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity bg-[#212121]/80 text-white text-[length:var(--text-body-m)] leading-[1.35] px-3 py-2 rounded-lg whitespace-nowrap">
+            Chat on WhatsApp
+          </span>
+          <a
+            href="https://wa.me/821099479530"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat on WhatsApp"
+            className="bg-whatsapp hover:brightness-90 transition-all size-10 md:size-14 rounded-[12px] md:rounded-[16px] flex items-center justify-center shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1),0px_4px_6px_0px_rgba(0,0,0,0.1)] shrink-0"
+          >
+            <svg className="w-5 h-5 md:w-7 md:h-7" viewBox="0 0 28 28" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2C7.373 2 2 7.373 2 14c0 2.387.672 4.618 1.838 6.51L2.5 25.5l5.18-1.358A11.948 11.948 0 0014 26c6.627 0 12-5.373 12-12S20.627 2 14 2zm6.385 16.98c-.27.756-1.587 1.443-2.163 1.532-.553.085-1.252.12-2.019-.127-.465-.152-1.062-.355-1.825-.695-3.208-1.385-5.304-4.616-5.467-4.83-.161-.214-1.316-1.751-1.316-3.34 0-1.59.833-2.369 1.128-2.693.295-.322.645-.403.86-.403.215 0 .43.002.618.01.198.01.464-.075.726.554.27.645.916 2.232.996 2.393.08.161.134.35.027.563-.108.214-.161.348-.323.537-.161.188-.339.42-.484.565-.161.161-.33.335-.142.658.188.322.836 1.379 1.795 2.233 1.234 1.101 2.274 1.442 2.596 1.603.322.161.51.135.699-.08.188-.215.806-.94 1.02-1.263.215-.322.43-.268.726-.161.295.108 1.876.885 2.198 1.046.322.161.537.242.617.376.08.134.08.778-.189 1.533z"/>
+            </svg>
+          </a>
+        </div>
+
+        {/* Free Consultation */}
+        <div className="group flex items-center gap-2">
+          <span className="pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity bg-[#212121]/80 text-white text-[length:var(--text-body-m)] leading-[1.35] px-3 py-2 rounded-lg whitespace-nowrap">
+            Free Consultation
+          </span>
+          <button
+            onClick={openModal}
+            aria-label="Free Consultation"
+            className="bg-blue-700 hover:brightness-90 transition-all size-10 md:size-14 rounded-[12px] md:rounded-[16px] flex items-center justify-center shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1),0px_4px_6px_0px_rgba(0,0,0,0.1)] shrink-0"
+          >
+            <svg className="w-5 h-5 md:w-7 md:h-7" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3.5" y="5.5" width="21" height="19" rx="2.5" stroke="white" strokeWidth="2"/>
+              <path d="M3.5 11.5h21" stroke="white" strokeWidth="2"/>
+              <path d="M9.5 3.5v4M18.5 3.5v4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              <circle cx="9.5" cy="17.5" r="1.5" fill="white"/>
+              <circle cx="14" cy="17.5" r="1.5" fill="white"/>
+              <circle cx="18.5" cy="17.5" r="1.5" fill="white"/>
+              <circle cx="9.5" cy="22" r="1.5" fill="white"/>
+              <circle cx="14" cy="22" r="1.5" fill="white"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Back to Top */}
+        <div className="group flex items-center gap-2">
+          <span className="pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity bg-[#212121]/80 text-white text-[length:var(--text-body-m)] leading-[1.35] px-3 py-2 rounded-lg whitespace-nowrap">
+            Back to Top
+          </span>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Back to top"
+            title="Back to Top"
+            className="bg-blue-700 hover:brightness-90 transition-all size-10 md:size-14 rounded-[12px] md:rounded-[16px] flex items-center justify-center shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1),0px_4px_6px_0px_rgba(0,0,0,0.1)] shrink-0"
+          >
+            <svg className="w-5 h-5 md:w-7 md:h-7" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 22V8M6 15l8-8 8 8" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </footer>
   );
 }

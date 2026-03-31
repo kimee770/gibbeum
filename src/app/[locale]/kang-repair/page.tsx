@@ -119,7 +119,7 @@ function BreakthroughSection() {
     <section className="bg-white py-[var(--spacing-xl)] px-6 md:px-10 xl:px-[144px]">
       <div className="max-w-[1016px] mx-auto flex flex-col gap-8 xl:gap-14">
         <SectionTitle>
-          <h2 className="font-bold text-blue-700 text-[length:var(--text-h2)] leading-[1.25] tracking-[-0.5px] whitespace-nowrap">
+          <h2 className="font-bold text-blue-700 text-[length:var(--text-h2)] leading-[1.25] tracking-[-0.5px]">
             Kang Repair®: The Breakthrough
           </h2>
         </SectionTitle>
@@ -256,7 +256,7 @@ function WhatIsSection() {
     <section className="bg-neutralgray-100 py-[var(--spacing-xl)] px-6 md:px-10 xl:px-[144px]">
       <div className="max-w-[1016px] mx-auto flex flex-col gap-8 xl:gap-14">
         <SectionTitle>
-          <h2 className="font-bold text-blue-700 text-[length:var(--text-h2)] text-center leading-[1.25] tracking-[-0.5px] whitespace-nowrap">
+          <h2 className="font-bold text-blue-700 text-[length:var(--text-h2)] leading-[1.25] tracking-[-0.5px]">
             What Is Kang Repair®?
           </h2>
         </SectionTitle>

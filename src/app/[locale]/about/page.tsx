@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -31,7 +32,7 @@ function BulletDot({ color = "blue" }: { color?: "blue" | "gray" }) {
 function CheckItem({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex gap-3 items-start">
-      <div className="shrink-0 w-5 mt-[2px]">
+      <div className="shrink-0 w-5 mt-[8px]">
         <Image
           src="/assets/about/icon-check-small.svg"
           alt=""
@@ -66,7 +67,7 @@ function StatsBar() {
       <div className="max-w-[1220px] mx-auto flex flex-col gap-6">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Stat 1 */}
-          <div className="flex-1 border-r border-neutralgray-400 flex flex-col items-center gap-2 text-center pr-px">
+          <div className="flex-1 md:border-r border-neutralgray-400 flex flex-col items-center gap-2 text-center pr-px">
             <p className="font-bold text-blue-700 text-[length:var(--text-h1)] leading-[1.1]">
               &lt;0.5%<span className="text-blue-400">*</span>
             </p>
@@ -78,7 +79,7 @@ function StatsBar() {
             </p>
           </div>
           {/* Stat 2 */}
-          <div className="flex-1 border-r border-neutralgray-400 flex flex-col items-center gap-2 text-center pr-px">
+          <div className="flex-1 md:border-r border-neutralgray-400 flex flex-col items-center gap-2 text-center pr-px">
             <p className="font-bold text-blue-700 text-[length:var(--text-h1)] leading-[1.1]">
               &lt;0.3%<span className="text-blue-400">*</span>
             </p>
@@ -198,7 +199,7 @@ function WhyPatientsSection() {
               Why Patients Fly Here from 57 Countries
             </h2>
           </SectionTitle>
-          <p className="font-bold text-neutralgray-900 text-[length:var(--text-h4)] leading-[1.35] tracking-[-0.5px]">
+          <p className="font-bold text-neutralgray-900 text-[length:var(--text-h4)] leading-[1.35] tracking-[-0.5px] xl:text-[25px] xl:tracking-[-1px]">
             When you&apos;re considering flying across the world for surgery,
             you need to know why.
           </p>
@@ -485,7 +486,7 @@ function SpecialistsSection() {
               "Combined experience: 35,000+ mesh-free repairs",
             ].map((item) => (
               <div key={item} className="flex gap-2 items-start">
-                <div className="shrink-0 w-4 mt-[2px]">
+                <div className="shrink-0 w-4 h-4 mt-[2px]">
                   <Image
                     src="/assets/about/icon-check-blue.svg"
                     alt=""
@@ -503,23 +504,6 @@ function SpecialistsSection() {
 
         {/* SNUH Training Center */}
         <div className="flex flex-col md:flex-row gap-6 items-start">
-          {/* SNUH Logo — 모바일 상단, 데스크탑 왼쪽 */}
-          <div className="bg-white rounded-full shadow-md shrink-0 size-[124px] flex items-center justify-center">
-            <div className="relative w-[92px] h-[46px] overflow-hidden">
-              <Image
-                src="/assets/about/snuh-logo.png"
-                alt="Seoul National University Hospital"
-                width={122}
-                height={87}
-                className="absolute max-w-none"
-                style={{
-                  left: "-21.97%",
-                  top: "-47.51%",
-                }}
-              />
-            </div>
-          </div>
-
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <h3 className="font-bold text-neutralgray-900 text-[length:var(--text-h5)] leading-[1.25] tracking-[-0.3px]">
@@ -549,6 +533,23 @@ function SpecialistsSection() {
               </div>
             </div>
           </div>
+
+          {/* SNUH Logo — 모바일 하단, 데스크탑 오른쪽 */}
+          <div className="bg-white rounded-full shadow-md shrink-0 size-[124px] flex items-center justify-center">
+            <div className="relative w-[92px] h-[46px] overflow-hidden">
+              <Image
+                src="/assets/about/snuh-logo.png"
+                alt="Seoul National University Hospital"
+                width={122}
+                height={87}
+                className="absolute max-w-none"
+                style={{
+                  left: "-21.97%",
+                  top: "-47.51%",
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -561,7 +562,7 @@ function SpecialistsSection() {
 function WhatMakesDifferentSection() {
   const rows = [
     {
-      typical: "→ One-size-fits-all mesh repair",
+      typical: "One-size-fits-all mesh surgery",
       gibbeum: "Type-specific mesh-free repair",
       highlight: false,
     },
@@ -610,12 +611,11 @@ function WhatMakesDifferentSection() {
           </h2>
         </SectionTitle>
 
-        {/* Comparison Table */}
+        {/* Comparison Table — single grid context for perfect column alignment */}
         <div className="bg-white rounded-3xl overflow-hidden shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)]">
-          {/* Table Header */}
-          <div className="flex h-[133px]">
-            {/* Typical Hospital col */}
-            <div className="flex-1 bg-neutralgray-300 border-r border-neutralgray-400 flex flex-col items-center justify-start gap-2 px-4 pt-6 pb-4">
+          <div className="grid grid-cols-2">
+            {/* Header: Typical Hospital */}
+            <div className="h-[133px] bg-neutralgray-300 border-r border-neutralgray-400 flex flex-col items-center justify-start gap-2 px-4 pt-6 pb-4">
               <div className="relative size-10 shrink-0 overflow-hidden">
                 <div className="absolute inset-[9.38%]">
                   <img
@@ -630,9 +630,8 @@ function WhatMakesDifferentSection() {
               </p>
             </div>
 
-            {/* Gibbeum col */}
-            <div className="flex-1 bg-blue-700 flex flex-col items-center justify-center p-6">
-              {/* Logo */}
+            {/* Header: Gibbeum */}
+            <div className="h-[133px] bg-blue-700 flex flex-col items-center justify-center p-6">
               <div className="relative" style={{ width: 119, height: 40 }}>
                 <div
                   className="relative overflow-hidden"
@@ -703,23 +702,23 @@ function WhatMakesDifferentSection() {
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* Table Rows */}
-          {rows.map((row, i) => (
-            <div key={i} className="flex">
-              <div className="flex-1 bg-neutralgray-100 border-b border-r border-neutralgray-300 flex items-center justify-center px-2 py-4">
-                <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] text-center leading-[1.45]">
-                  {row.typical}
-                </p>
-              </div>
-              <div className="flex-1 bg-blue-50/70 border-b border-r border-blue-100 flex items-center justify-center px-2 py-4">
-                <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] text-center leading-[1.45]">
-                  {row.gibbeum}
-                </p>
-              </div>
-            </div>
-          ))}
+            {/* Table Rows — cells placed directly in the outer grid */}
+            {rows.map((row, i) => (
+              <React.Fragment key={i}>
+                <div className="bg-neutralgray-100 border-b border-r border-neutralgray-300 flex items-center justify-center px-2 py-4">
+                  <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] text-center leading-[1.45]">
+                    {row.typical}
+                  </p>
+                </div>
+                <div className="bg-blue-50/70 border-b border-blue-100 flex items-center justify-center px-2 py-4">
+                  <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] text-center leading-[1.45]">
+                    {row.gibbeum}
+                  </p>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
 
         {/* Footnote */}

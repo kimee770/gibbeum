@@ -80,6 +80,69 @@ const VIDEOS: VideoItem[] = [
 ];
 
 /* ─────────────────────────────────────────
+   Video Modal
+───────────────────────────────────────── */
+function VideoModal({
+  video,
+  onClose,
+}: {
+  video: VideoItem;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-[rgba(0,0,0,0.85)] flex items-center justify-center px-[32px] md:px-[56px] xl:px-0"
+      onClick={onClose}
+    >
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute right-[32px] top-[32px] size-8 flex items-center justify-center"
+        aria-label="Close"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path
+            d="M13 3L3 13M3 3l10 10"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+
+      {/* Container */}
+      <div
+        className="w-full xl:max-w-[1024px] flex flex-col gap-2"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Video area */}
+        <div className="bg-[#2d3444] rounded-[16px] w-full aspect-video flex flex-col items-center justify-center gap-4 p-4">
+          <div className="size-[80px] rounded-full bg-white/20 flex items-center justify-center pl-1">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/video/icon-play-lg.svg"
+              alt="Play"
+              className="size-9 object-contain"
+            />
+          </div>
+          {/* Title inside on md+ */}
+          <p className="hidden md:block font-bold text-white text-[length:var(--text-h6)] text-center leading-[1.45] tracking-[-0.3px]">
+            {video.title}
+          </p>
+        </div>
+
+        {/* Title below on mobile */}
+        <div className="md:hidden flex items-center justify-center px-2 py-3">
+          <p className="font-bold text-white text-[length:var(--text-h6)] text-center leading-[1.45] tracking-[-0.3px]">
+            {video.title}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
    Thumbnail component (gradient + play)
 ───────────────────────────────────────── */
 function VideoThumbnail({
@@ -137,9 +200,9 @@ function CategoryBadge({ label }: { label: string }) {
 /* ─────────────────────────────────────────
    Featured Video Card (horizontal)
 ───────────────────────────────────────── */
-function FeaturedVideo() {
+function FeaturedVideo({ onClick }: { onClick: () => void }) {
   return (
-    <div className="bg-white rounded-[12px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row">
+    <div onClick={onClick} className="bg-white rounded-[12px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row cursor-pointer">
       {/* Thumbnail */}
       <div className="w-full md:w-1/2 shrink-0">
         <VideoThumbnail duration="15:30" size="lg" />
@@ -192,9 +255,9 @@ function FeaturedVideo() {
 /* ─────────────────────────────────────────
    Video Card (grid item)
 ───────────────────────────────────────── */
-function VideoCard({ video }: { video: VideoItem }) {
+function VideoCard({ video, onClick }: { video: VideoItem; onClick: () => void }) {
   return (
-    <div className="group bg-white hover:bg-blue-50 rounded-[12px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col cursor-pointer transition-colors duration-200">
+    <div onClick={onClick} className="group bg-white hover:bg-blue-50 rounded-[12px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col cursor-pointer transition-colors duration-200">
       <VideoThumbnail duration={video.duration} size="sm" />
 
       <div className="flex flex-col gap-3 p-6">
@@ -416,8 +479,18 @@ function CtaBanner() {
 /* ─────────────────────────────────────────
    Main Videos Section
 ───────────────────────────────────────── */
+const FEATURED_VIDEO: VideoItem = {
+  category: "Surgical Technique",
+  duration: "15:30",
+  views: "23.5K",
+  title: "Understanding the Kang Repair Advantage",
+  description:
+    "Dr. Kang provides an in-depth explanation of why our mesh-free technique achieves superior outcomes compared to traditional mesh repairs.",
+};
+
 function VideoSection() {
   const [activeTab, setActiveTab] = useState<VideoCategory>("All");
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
   const filtered =
     activeTab === "All"
@@ -431,18 +504,29 @@ function VideoSection() {
         <FilterTabs active={activeTab} onChange={setActiveTab} />
 
         {/* Featured Video — shown only in "All" tab */}
-        {activeTab === "All" && <FeaturedVideo />}
+        {activeTab === "All" && (
+          <FeaturedVideo onClick={() => setSelectedVideo(FEATURED_VIDEO)} />
+        )}
 
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 xl:gap-8">
           {filtered.map((video) => (
-            <VideoCard key={video.title} video={video} />
+            <VideoCard
+              key={video.title}
+              video={video}
+              onClick={() => setSelectedVideo(video)}
+            />
           ))}
         </div>
 
         {/* CTA Banner */}
         <CtaBanner />
       </div>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <VideoModal video={selectedVideo} onClose={() => setSelectedVideo(null)} />
+      )}
     </section>
   );
 }
