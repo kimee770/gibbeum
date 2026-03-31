@@ -383,7 +383,7 @@ export default function Header() {
                             block w-full bg-[#125CC3] text-white text-center
                             font-bold text-[20px] leading-[1.45] tracking-[-0.3px]
                             px-6 py-2 rounded-lg
-                            hover:bg-[#0047AB] transition-colors
+                            hover:bg-blue-800 transition-colors
                           "
                         >
                           Free Consultation

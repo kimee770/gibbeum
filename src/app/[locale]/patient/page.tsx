@@ -446,10 +446,10 @@ function StepsSection() {
                     <p className="font-bold text-blue-700 text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px]">Le Collective (Urbanstay)</p>
                     <span className="bg-blue-100 text-system-link font-bold text-[12px] px-2 py-0.5 rounded-full shrink-0">Partner</span>
                   </div>
-                  <div className="flex items-center gap-1 shrink-0">
+                  <a href="https://en.urbanstay.co.kr/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 shrink-0 hover:underline">
                     <p className="text-system-link text-[length:var(--text-body-m)] leading-[1.35]">en.urbanstay.co.kr</p>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H6M11 3V8" stroke="#1447e6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                  </a>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[680px] text-[14px] border-collapse">
@@ -548,10 +548,10 @@ function StepsSection() {
                     <p className="font-bold text-blue-700 text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px]">Sohsul Hotel</p>
                     <span className="bg-blue-100 text-system-link font-bold text-[12px] px-2 py-0.5 rounded-full shrink-0">Partner</span>
                   </div>
-                  <div className="flex items-center gap-1 shrink-0">
+                  <a href="https://booking.naver.com/booking/3/bizes/413726?area=plt" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 shrink-0 hover:underline">
                     <p className="text-system-link text-[length:var(--text-body-m)] leading-[1.35]">Booking Link</p>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H6M11 3V8" stroke="#1447e6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                  </a>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[540px] text-[14px] border-collapse">
@@ -604,10 +604,10 @@ function StepsSection() {
                     <p className="font-bold text-blue-700 text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px]">Shilla Stay Seocho</p>
                     <span className="bg-blue-100 text-system-link font-bold text-[12px] px-2 py-0.5 rounded-full shrink-0">Partner</span>
                   </div>
-                  <div className="flex items-center gap-1 shrink-0">
+                  <a href="https://www.shillastay.com/seocho/index.do#" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 shrink-0 hover:underline">
                     <p className="text-system-link text-[length:var(--text-body-m)] leading-[1.35]">www.shillastay.com</p>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M11 3H6M11 3V8" stroke="#1447e6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </div>
+                  </a>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[640px] text-[14px] border-collapse">

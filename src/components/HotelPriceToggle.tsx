@@ -11,7 +11,7 @@ export default function HotelPriceToggle({ children }: { children: React.ReactNo
       <div className="flex justify-center">
         <button
           onClick={() => setOpen(!open)}
-          className="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-3 px-6 py-4 rounded-[16px] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1),0px_2px_4px_0px_rgba(0,0,0,0.1)]"
+          className="w-full bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer flex items-center justify-center gap-3 px-6 py-4 rounded-[16px] shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1),0px_2px_4px_0px_rgba(0,0,0,0.1)]"
         >
           <p className="font-bold text-white text-[length:var(--text-h6)] leading-[1.45] tracking-[-0.3px] whitespace-nowrap">
             See our Partner Hotel Price
