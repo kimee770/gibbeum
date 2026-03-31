@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Breakpoints ── */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* ── Fonts ── */
+  --font-inter: var(--font-inter);
+  --font-lora: var(--font-lora);
+
+  /* ── Colors: Primary Blue (Figma Design System) ── */
+  --color-blue-900: #002559;  /* DK_Blue */
+  --color-blue-800: #003682;  /* D_Blue */
+  --color-blue-700: #0047ab;  /* Gibbeum Blue ★ PRIMARY */
+  --color-blue-600: #125cc3;
+  --color-blue-500: #086fed;  /* Sky blue */
+  --color-blue-400: #0091ff;  /* Blue */
+  --color-blue-300: #5cabff;  /* Azure */
+  --color-blue-200: #b3d9ff;  /* Sky-hover */
+  --color-blue-100: #dbedff;  /* Sky */
+  --color-blue-50:  #eef5fc;  /* L_Blue */
+  --color-gibbeum-blue: #0047ab; /* alias */
+  --color-skyblue: #10d6ff;   /* 헤더 accent */
+
+  /* ── Colors: Neutral Gray (Figma Design System) ── */
+  --color-neutralgray-900: #212121; /* Coal */
+  --color-neutralgray-800: #3d3d3d; /* Charcoal */
+  --color-neutralgray-700: #595959; /* Shadow */
+  --color-neutralgray-600: #737373; /* D-Grey */
+  --color-neutralgray-500: #8f8f8f; /* Grey */
+  --color-neutralgray-400: #d5d7da; /* Ash */
+  --color-neutralgray-300: #e9eaeb; /* Concrete */
+  --color-neutralgray-200: #f5f5f5; /* Silver */
+  --color-neutralgray-100: #fafafa; /* Smoke */
+  --color-neutralgray-50:  #fdfdfd; /* Snow */
+
+  /* ── Colors: Slate (Figma Design System) ── */
+  --color-slate-900: #2d3444; /* Midnight */
+  --color-slate-800: #434d61; /* Twilight */
+  --color-slate-700: #5c687e; /* Storm */
+  --color-slate-600: #77839c; /* Slate_Grey */
+  --color-slate-500: #95a1b9; /* Cool_Grey */
+  --color-slate-400: #b5c0d6; /* L_Grey */
+  --color-slate-300: #d6e0f3; /* Cloud */
+  --color-slate-200: #e2e8f6; /* Steel */
+  --color-slate-100: #edf1f9; /* Fog */
+  --color-slate-50:  #f9fafc; /* Mist */
+
+  /* ── Colors: System (Figma Design System) ── */
+  --color-system-black:  #000000;
+  --color-system-white:  #ffffff;
+  --color-system-violet: #9810fa;
+  --color-system-link:   #1447e6;
+  --color-system-safe:   #009262;
+  --color-system-green:  #00a63e;
+  --color-system-peacok: #00d5be;
+  --color-system-mint:   #55ffc7;
+  --color-system-danger: #e02b1d;
+  --color-system-yellow: #ffdf20;
+
+  /* ── Colors: Brand ── */
+  --color-whatsapp: #25d366;
+
+  /* ── Box Shadow ── */
+  --shadow-6px: 0 6px 12px #abbed14d;
+  --shadow-dp4:
+    0px 2px 4px rgba(0, 0, 0, 0.14), 0px 3px 4px rgba(0, 0, 0, 0.12),
+    0px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #212121;
+
+  /* ── Spacing Tokens (Figma Variables — web default) ── */
+  --spacing-none: 0px;
+  --spacing-xs:   8px;
+  --spacing-s:    16px;
+  --spacing-sm:   24px;
+  --spacing-m:    32px;
+  --spacing-ml:   56px;
+  --spacing-xl:   80px;
+
+  /* ── Font Size Tokens (Figma Variables — web default) ── */
+  /* Lora (display headings) */
+  --text-lora-h1: 64px;
+  --text-lora-h2: 48px;
+  --text-lora-h3: 36px;
+  --text-lora-h4: 24px;
+  /* Inter (headings) */
+  --text-h1: 48px;
+  --text-h2: 42px;
+  --text-h3: 36px;
+  --text-h4: 26px;
+  --text-h5: 24px;
+  --text-h6: 20px;
+  /* Inter (body) */
+  --text-body-xl:  20px;
+  --text-body-l:   18px;
+  --text-body-16b: 16px;
+  --text-body-m:   16px;
+  --text-body-s:   14px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+
+/* ── Responsive Token Overrides ── */
+
+/* Tablet (768px ~ 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --spacing-xs:  4px;
+    --spacing-s:   8px;
+    --spacing-sm:  16px;
+    --spacing-m:   32px;
+    --spacing-ml:  40px;
+    --spacing-xl:  56px;
+
+    --text-lora-h1: 38px;
+    --text-lora-h2: 34px;
+    --text-lora-h3: 28px;
+    --text-lora-h4: 20px;
+    --text-h1:  34px;
+    --text-h2:  32px;
+    --text-h3:  26px;
+    --text-h4:  20px;
+    --text-h5:  20px;
+    --text-h6:  18px;
+    --text-body-xl:  16px;
+    --text-body-l:   18px;
+    --text-body-16b: 16px;
+    --text-body-m:   16px;
+    --text-body-s:   12px;
+  }
+}
+
+/* Mobile (~767px) */
+@media (max-width: 767px) {
+  :root {
+    --spacing-xs:  4px;
+    --spacing-s:   8px;
+    --spacing-sm:  10px;
+    --spacing-m:   24px;
+    --spacing-ml:  32px;
+    --spacing-xl:  40px;
+
+    --text-lora-h1: 36px;
+    --text-lora-h2: 32px;
+    --text-lora-h3: 28px;
+    --text-lora-h4: 20px;
+    --text-h1:  34px;
+    --text-h2:  32px;
+    --text-h3:  26px;
+    --text-h4:  20px;
+    --text-h5:  20px;
+    --text-h6:  18px;
+    --text-body-xl:  16px;
+    --text-body-l:   16px;
+    --text-body-16b: 16px;
+    --text-body-m:   14px;
+    --text-body-s:   12px;
+  }
+}
+
+
+/* TrustedSection map responsive widths */
+.map-world {
+  width: 150%;
+}
+@media (min-width: 768px) {
+  .map-world { width: 112%; }
+}
+@media (min-width: 1024px) {
+  .map-world { width: 115%; }
+}
+@media (min-width: 1280px) {
+  .map-world { width: 103%; }
+}

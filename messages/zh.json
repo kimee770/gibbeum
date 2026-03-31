@@ -1,0 +1,13 @@
+{
+  "Home": {
+    "title": "基本医院"
+  },
+  "Nav": {
+    "about": "关于我们",
+    "surgery": "手术",
+    "doctors": "医生",
+    "reviews": "患者评价",
+    "contact": "联系我们",
+    "appointment": "预约挂号"
+  }
+}

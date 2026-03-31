@@ -1,0 +1,13 @@
+{
+  "Home": {
+    "title": "Gibbeum Hospital"
+  },
+  "Nav": {
+    "about": "About Us",
+    "surgery": "Surgery",
+    "doctors": "Doctors",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "appointment": "Make an Appointment"
+  }
+}
