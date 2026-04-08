@@ -175,48 +175,48 @@ export const SEARCH_DATA: SearchResult[] = [
     category: "FAQ",
   },
 
-  /* ── Educational Cartoons ── */
+  /* ── Educational Cartoons Cartoons ── */
   {
     title: "What is an Inguinal Hernia?",
     description:
       "Understanding the basics of inguinal hernias through simple illustrations. 3 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
   {
     title: "Mesh vs Mesh-Free Surgery",
     description:
       "Visual comparison of different hernia repair approaches. 4 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
   {
     title: "The Kang Repair Technique — Visual Guide",
     description:
       "Step-by-step visual guide to our revolutionary mesh-free technique. 5 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
   {
     title: "Mesh Complications Explained",
     description:
       "Understanding potential issues with mesh implants through illustrated guides. 4 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
   {
     title: "Recovery Timeline After Hernia Surgery",
     description:
       "What to expect during your recovery journey — illustrated week by week. 3 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
   {
     title: "Anatomy of the Groin",
     description:
       "Learn about the anatomy involved in hernia repairs through clear diagrams. 4 min read.",
     href: "/cartoons",
-    category: "Educational",
+    category: "Educational Cartoons",
   },
 
   /* ── Videos ── */

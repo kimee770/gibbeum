@@ -77,26 +77,25 @@ function TrustBadge({ label }: { label: string }) {
 ───────────────────────────────────────── */
 export default function ConsultationModal() {
   const { isOpen, closeModal } = useConsultationModal();
-  const scrollY = useRef(0);
+  const scrollbarWidthRef = useRef(0);
 
-  // body scroll lock (position:fixed 방식 — iOS 포함 레이아웃 흔들림 방지)
+  // body scroll lock
+  // — overflow:hidden + 스크롤바 너비 보상 (데스크탑 레이아웃 흔들림 방지)
+  // — position:fixed 방식은 iOS에서 오히려 흔들림 유발하므로 사용 안 함
   useEffect(() => {
     if (isOpen) {
-      scrollY.current = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY.current}px`;
-      document.body.style.width = "100%";
+      // 스크롤바 너비 계산 (모바일에서는 0)
+      const sw = window.innerWidth - document.documentElement.clientWidth;
+      scrollbarWidthRef.current = sw;
+      if (sw > 0) document.body.style.paddingRight = `${sw}px`;
+      document.body.style.overflow = "hidden";
     } else {
-      const y = scrollY.current;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      window.scrollTo(0, y);
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
     return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [isOpen]);
 
@@ -112,14 +111,23 @@ export default function ConsultationModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-6"
+      className="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-4 md:py-8"
       style={{ background: "rgba(0,0,0,0.85)" }}
       onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
     >
-      <div className="bg-white rounded-[16px] w-full max-w-[672px] max-h-[90vh] overflow-y-auto shadow-2xl">
-        {/* ── Header ── */}
+      {/*
+        모달 컨테이너:
+        - flex-col 구조로 헤더(고정) + 폼(스크롤) 분리
+        - sticky 제거 → 헤더가 overflow 컨테이너 밖에 위치
+        - max-h: svh(small viewport height) 사용 — iOS browser chrome 제외한 실제 가시 영역 기준
+      */}
+      <div
+        className="bg-white rounded-[16px] w-full max-w-[672px] flex flex-col shadow-2xl"
+        style={{ maxHeight: "min(calc(100svh - 32px), calc(100vh - 32px))" }}
+      >
+        {/* ── Header (스크롤 영역 밖, 항상 보임) ── */}
         <div
-          className="flex items-center justify-between px-6 py-6 rounded-t-[16px] sticky top-0 z-10"
+          className="flex items-center justify-between px-6 py-6 rounded-t-[16px] shrink-0"
           style={{ background: "linear-gradient(to bottom, #0047ab, #003380)" }}
         >
           <div className="flex flex-col gap-2">
@@ -141,136 +149,138 @@ export default function ConsultationModal() {
           </button>
         </div>
 
-        {/* ── Form ── */}
-        <div className="flex flex-col gap-6 p-6">
-          {/* Row 1: Name + Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <Label required>Full Name</Label>
-              <InputField placeholder="John Smith" />
+        {/* ── Form (독립 스크롤 영역) ── */}
+        <div className="overflow-y-auto overscroll-contain flex-1">
+          <div className="flex flex-col gap-6 p-6">
+            {/* Row 1: Name + Email */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label required>Full Name</Label>
+                <InputField placeholder="John Smith" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label required>Email Address</Label>
+                <InputField placeholder="john@example.com" type="email" />
+              </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <Label required>Email Address</Label>
-              <InputField placeholder="john@example.com" type="email" />
+
+            {/* Row 2: Country + Phone */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label required>Country</Label>
+                <SelectField placeholder="Select Country" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label>Phone/WhatsApp</Label>
+                <InputField placeholder="+1 234 567 8900" type="tel" />
+              </div>
             </div>
-          </div>
 
-          {/* Row 2: Country + Phone */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* What brings you */}
             <div className="flex flex-col gap-2">
-              <Label required>Country</Label>
-              <SelectField placeholder="Select Country" />
+              <Label required>What brings you to us?</Label>
+              <SelectField placeholder="Select condition Type" />
             </div>
+
+            {/* Describe symptoms */}
             <div className="flex flex-col gap-2">
-              <Label>Phone/WhatsApp</Label>
-              <InputField placeholder="+1 234 567 8900" type="tel" />
-            </div>
-          </div>
-
-          {/* What brings you */}
-          <div className="flex flex-col gap-2">
-            <Label required>What brings you to us?</Label>
-            <SelectField placeholder="Select condition Type" />
-          </div>
-
-          {/* Describe symptoms */}
-          <div className="flex flex-col gap-2">
-            <Label required>Describe your symptoms</Label>
-            <textarea
-              placeholder="When did it start? Where is the pain/bulge? Any previous surgeries?"
-              rows={4}
-              className="w-full border-2 border-neutralgray-300 rounded-[8px] px-4 py-3 text-[length:var(--text-body-m)] text-neutralgray-600 placeholder:text-neutralgray-600 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-            />
-          </div>
-
-          {/* Previous surgeries */}
-          <div className="flex flex-col gap-2">
-            <Label>Previous hernia surgeries?</Label>
-            <InputField placeholder="e.g., Mesh repair in 2020" />
-          </div>
-
-          {/* Preferred Date */}
-          <div className="flex flex-col gap-2">
-            <Label>Preferred Date for Consultation</Label>
-            <div className="relative">
-              <input
-                type="date"
-                className="w-full h-12 border-2 border-neutralgray-300 rounded-[8px] px-4 py-3 text-[length:var(--text-body-m)] text-neutralgray-600 focus:outline-none focus:border-blue-500 transition-colors"
+              <Label required>Describe your symptoms</Label>
+              <textarea
+                placeholder="When did it start? Where is the pain/bulge? Any previous surgeries?"
+                rows={4}
+                className="w-full border-2 border-neutralgray-300 rounded-[8px] px-4 py-3 text-[length:var(--text-body-m)] text-neutralgray-600 placeholder:text-neutralgray-600 focus:outline-none focus:border-blue-500 transition-colors resize-none"
               />
             </div>
-          </div>
 
-          {/* Medical records notice */}
-          <div className="bg-blue-50 border-2 border-blue-200 rounded-[8px] p-6 flex flex-col items-center gap-2 text-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/modal/icon-upload.svg" alt="" className="size-8" />
-            <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-m)] leading-[1.25]">
-              Have medical records or CT/MRI scans?
-            </p>
-            <p className="text-neutralgray-600 text-[14px] leading-[1.35]">
-              You can attach them in the follow-up email we&apos;ll send after this form.
-            </p>
-          </div>
+            {/* Previous surgeries */}
+            <div className="flex flex-col gap-2">
+              <Label>Previous hernia surgeries?</Label>
+              <InputField placeholder="e.g., Mesh repair in 2020" />
+            </div>
 
-          {/* Privacy notice */}
-          <div className="bg-neutralgray-200 rounded-[8px] p-4">
-            <p className="text-[#4a5565] text-[14px] leading-[1.35]">
-              By submitting this form, you agree to be contacted by Gibbeum Hospital&apos;s
-              international team via email or WhatsApp. Your information is kept
-              confidential and used only for medical consultation purposes.
-            </p>
-          </div>
-
-          {/* Checkbox + Submit */}
-          <div className="flex flex-col gap-4">
-            <label className="flex gap-2 items-start cursor-pointer">
-              <input type="checkbox" className="mt-[3px] size-4 shrink-0 border border-neutralgray-500 cursor-pointer" />
-              <span className="text-neutralgray-900 text-[length:var(--text-body-m)] leading-[1.35]">
-                I agree to the collection of my personal information.{" "}
-                <span className="text-blue-500">*</span>
-              </span>
-            </label>
-
-            <button
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-white text-[length:var(--text-h6)] tracking-[-0.3px] transition-opacity hover:opacity-90 whitespace-nowrap"
-              style={{ background: "linear-gradient(to bottom, #0076f1, #0062c7)" }}
-            >
-              Submit Consultation Request
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/modal/icon-send.svg" alt="" className="size-5 hidden md:block" />
-            </button>
-          </div>
-
-          {/* Trust badges */}
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center justify-center">
-            <TrustBadge label="No obligations" />
-            <TrustBadge label="24-hour response" />
-            <TrustBadge label="Completely confidential" />
-          </div>
-
-          {/* Direct contact */}
-          <div className="border-t border-neutralgray-300 pt-6 flex flex-col gap-6 items-center">
-            <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] leading-[1.45] text-center">
-              Or contact us directly:
-            </p>
-            <div className="flex flex-col gap-6 items-center">
-              <a
-                href="mailto:internationalcenter@gibbeum.com"
-                className="flex gap-2 items-center text-blue-700 text-[14px] hover:underline"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/modal/icon-email.svg" alt="" className="size-4" />
-                internationalcenter@gibbeum.com
-              </a>
-              <a href="https://wa.me/821099479530" target="_blank" rel="noopener noreferrer">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/modal/whatsapp-qr.png"
-                  alt="WhatsApp QR Code"
-                  className="rounded-[4px]"
-                  style={{ width: 153, height: 153 }}
+            {/* Preferred Date */}
+            <div className="flex flex-col gap-2">
+              <Label>Preferred Date for Consultation</Label>
+              <div className="relative">
+                <input
+                  type="date"
+                  className="w-full h-12 border-2 border-neutralgray-300 rounded-[8px] px-4 py-3 text-[length:var(--text-body-m)] text-neutralgray-600 focus:outline-none focus:border-blue-500 transition-colors"
                 />
-              </a>
+              </div>
+            </div>
+
+            {/* Medical records notice */}
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-[8px] p-6 flex flex-col items-center gap-2 text-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/modal/icon-upload.svg" alt="" className="size-8" />
+              <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-m)] leading-[1.25]">
+                Have medical records or CT/MRI scans?
+              </p>
+              <p className="text-neutralgray-600 text-[14px] leading-[1.35]">
+                You can attach them in the follow-up email we&apos;ll send after this form.
+              </p>
+            </div>
+
+            {/* Privacy notice */}
+            <div className="bg-neutralgray-200 rounded-[8px] p-4">
+              <p className="text-[#4a5565] text-[14px] leading-[1.35]">
+                By submitting this form, you agree to be contacted by Gibbeum Hospital&apos;s
+                international team via email or WhatsApp. Your information is kept
+                confidential and used only for medical consultation purposes.
+              </p>
+            </div>
+
+            {/* Checkbox + Submit */}
+            <div className="flex flex-col gap-4">
+              <label className="flex gap-2 items-start cursor-pointer">
+                <input type="checkbox" className="mt-[3px] size-4 shrink-0 border border-neutralgray-500 cursor-pointer" />
+                <span className="text-neutralgray-900 text-[length:var(--text-body-m)] leading-[1.35]">
+                  I agree to the collection of my personal information.{" "}
+                  <span className="text-blue-500">*</span>
+                </span>
+              </label>
+
+              <button
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-white text-[length:var(--text-h6)] tracking-[-0.3px] transition-opacity hover:opacity-90 whitespace-nowrap"
+                style={{ background: "linear-gradient(to bottom, #0076f1, #0062c7)" }}
+              >
+                Submit Consultation Request
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/modal/icon-send.svg" alt="" className="size-5 hidden md:block" />
+              </button>
+            </div>
+
+            {/* Trust badges */}
+            <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center justify-center">
+              <TrustBadge label="No obligations" />
+              <TrustBadge label="24-hour response" />
+              <TrustBadge label="Completely confidential" />
+            </div>
+
+            {/* Direct contact */}
+            <div className="border-t border-neutralgray-300 pt-6 flex flex-col gap-6 items-center">
+              <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] leading-[1.45] text-center">
+                Or contact us directly:
+              </p>
+              <div className="flex flex-col gap-6 items-center">
+                <a
+                  href="mailto:internationalcenter@gibbeum.com"
+                  className="flex gap-2 items-center text-blue-700 text-[14px] hover:underline"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/assets/modal/icon-email.svg" alt="" className="size-4" />
+                  internationalcenter@gibbeum.com
+                </a>
+                <a href="https://wa.me/821099479530" target="_blank" rel="noopener noreferrer">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/modal/whatsapp-qr.png"
+                    alt="WhatsApp QR Code"
+                    className="rounded-[4px]"
+                    style={{ width: 153, height: 153 }}
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
