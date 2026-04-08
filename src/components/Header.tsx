@@ -446,8 +446,8 @@ export default function Header() {
                       </div>
                     </div>
 
-                    {/* 컬럼3 — Get Started */}
-                    <div className="flex flex-col gap-4 flex-1 min-w-0">
+                    {/* 컬럼3 — Get Started (태블릿만 표시, 버튼 포함) */}
+                    <div className="hidden md:flex flex-col gap-4 flex-1 min-w-0">
                       <p className="text-[#10D6FF] font-bold text-[16px] leading-6">
                         Get Started
                       </p>

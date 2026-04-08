@@ -79,15 +79,25 @@ export default function ConsultationModal() {
   const { isOpen, closeModal } = useConsultationModal();
   const scrollY = useRef(0);
 
-  // body scroll lock
+  // body scroll lock (position:fixed 방식 — iOS 포함 레이아웃 흔들림 방지)
   useEffect(() => {
     if (isOpen) {
       scrollY.current = window.scrollY;
-      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY.current}px`;
+      document.body.style.width = "100%";
     } else {
-      document.body.style.overflow = "";
+      const y = scrollY.current;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, y);
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+    };
   }, [isOpen]);
 
   // ESC key close

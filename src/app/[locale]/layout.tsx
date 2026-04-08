@@ -25,6 +25,16 @@ export const metadata: Metadata = {
   title: "Gibbeum Hospital — Mesh-Free Hernia Surgery",
   description:
     "Gibbeum Hospital specializes in mesh-free hernia surgery with advanced minimally invasive techniques.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default async function LocaleLayout({
