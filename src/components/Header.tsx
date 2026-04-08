@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useConsultationModal } from "@/context/ConsultationModalContext";
 
 /* ─── Figma 에셋 경로 (public/assets/header/) ─────────────────── */
@@ -150,9 +150,21 @@ const NAV_LINKS = [
 export default function Header() {
   const [menuOpen,    setMenuOpen]    = useState(false);
   const [searchOpen,  setSearchOpen]  = useState(false);
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchRef    = useRef<HTMLInputElement>(null);
+  const mobileSearchRef = useRef<HTMLInputElement>(null);
   const { openModal } = useConsultationModal();
   const pathname = usePathname();
+  const router   = useRouter();
+
+  // locale: "/en/about" → "en"
+  const locale = pathname.split("/")[1] ?? "en";
+
+  const goSearch = (value: string) => {
+    const q = value.trim();
+    if (!q) return;
+    closeAll();
+    router.push(`/${locale}/search?q=${encodeURIComponent(q)}`);
+  };
 
   /** 경로가 href와 일치하면 활성 텍스트 색상, 아니면 비활성 */
   const navTextColor = (href: string) =>
@@ -248,6 +260,9 @@ export default function Header() {
                     text-neutralgray-50
                     placeholder:text-[rgba(253,253,253,0.5)]
                   "
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") goSearch(e.currentTarget.value);
+                  }}
                 />
               </div>
             )}
@@ -379,6 +394,7 @@ export default function Header() {
                   <div className="flex items-center gap-1 h-9 border-b border-[#E9EAEB] py-3">
                     <IconSearchSmall />
                     <input
+                      ref={mobileSearchRef}
                       type="text"
                       placeholder="search..."
                       className="
@@ -386,6 +402,9 @@ export default function Header() {
                         text-neutralgray-50
                         placeholder:text-[rgba(253,253,253,0.5)]
                       "
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") goSearch(e.currentTarget.value);
+                      }}
                     />
                   </div>
 
