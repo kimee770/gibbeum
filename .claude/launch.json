@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "gibbeum-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "cd /Users/kimee/GIBBEUM/gibbeum && PATH=/opt/homebrew/bin:/opt/homebrew/Cellar/node/25.6.1_1/bin:$PATH node node_modules/.bin/next dev"],
       "port": 3000
     }
   ]
