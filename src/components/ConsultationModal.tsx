@@ -78,13 +78,12 @@ function TrustBadge({ label }: { label: string }) {
 export default function ConsultationModal() {
   const { isOpen, closeModal } = useConsultationModal();
   const scrollbarWidthRef = useRef(0);
+  const formRef = useRef<HTMLDivElement>(null);
 
   // body scroll lock
   // — overflow:hidden + 스크롤바 너비 보상 (데스크탑 레이아웃 흔들림 방지)
-  // — position:fixed 방식은 iOS에서 오히려 흔들림 유발하므로 사용 안 함
   useEffect(() => {
     if (isOpen) {
-      // 스크롤바 너비 계산 (모바일에서는 0)
       const sw = window.innerWidth - document.documentElement.clientWidth;
       scrollbarWidthRef.current = sw;
       if (sw > 0) document.body.style.paddingRight = `${sw}px`;
@@ -96,6 +95,21 @@ export default function ConsultationModal() {
     return () => {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
+    };
+  }, [isOpen]);
+
+  // iOS touchmove 흔들림 방지
+  // — document 전체의 touchmove를 막고, 모달 내부 스크롤 영역만 허용
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const blockBodyScroll = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener("touchmove", blockBodyScroll, { passive: false });
+    return () => {
+      document.removeEventListener("touchmove", blockBodyScroll);
     };
   }, [isOpen]);
 
@@ -150,7 +164,11 @@ export default function ConsultationModal() {
         </div>
 
         {/* ── Form (독립 스크롤 영역) ── */}
-        <div className="overflow-y-auto overscroll-contain flex-1">
+        <div
+          ref={formRef}
+          className="overflow-y-auto overscroll-contain flex-1"
+          onTouchMove={(e) => e.nativeEvent.stopImmediatePropagation()}
+        >
           <div className="flex flex-col gap-6 p-6">
             {/* Row 1: Name + Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
