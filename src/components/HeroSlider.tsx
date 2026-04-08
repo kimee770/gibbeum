@@ -383,14 +383,13 @@ export default function HeroSlider() {
             Figma Desktop : pt-[78px]  max-w-[838px] */}
         <div className="relative flex flex-col items-center text-center px-6 md:px-10 xl:px-[150px] pt-[109px] md:pt-[64px] xl:pt-[78px]">
           <h2
-            className="font-bold text-white max-w-[290px] md:max-w-[423px] xl:max-w-[838px] w-full"
+            className="font-bold text-white md:max-w-[423px] xl:max-w-[838px] w-full text-[24px] md:text-[38px] xl:text-[clamp(38px,3.9vw,60px)]"
             style={{
               fontFamily: "var(--font-lora)",
-              fontSize: "clamp(28px, 3.9vw, 60px)",
               lineHeight: "1.15",
             }}
           >
-            Performed by Dr. Kang<br />and his team.
+            <span className="whitespace-nowrap">Performed by Dr. Kang</span><br />and his team.
           </h2>
           <p
             className="text-white/90 font-medium mt-4 max-w-[290px] md:max-w-[423px] xl:max-w-[517px]"

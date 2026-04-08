@@ -121,7 +121,7 @@ function WhyGibbeumSection() {
       <div className="max-w-[1016px] mx-auto flex flex-col gap-[var(--spacing-xl)]">
         <SectionTitle>
           <h2 className="font-bold text-blue-700 text-[length:var(--text-h2)] text-center leading-[1.25] tracking-[-0.5px]">
-            Why Gibbeum! Why Korea?
+            Why Gibbeum!<br className="md:hidden" /> Why Korea?
           </h2>
         </SectionTitle>
 
@@ -428,9 +428,9 @@ function SpecialistsSection() {
         </div>
 
         {/* 2 col lists */}
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col md:flex-row gap-0 md:gap-8">
           {/* Surgical Team */}
-          <div className="flex-1 px-4 py-6 xl:p-8 rounded-2xl">
+          <div className="flex-1 px-4 py-4 md:py-6 xl:p-8 rounded-2xl">
             <div className="flex flex-col gap-1 mb-6">
               <h3 className="font-bold text-blue-700 text-[length:var(--text-h4)] leading-[1.35] tracking-[-0.5px]">
                 Our Surgical Team
@@ -452,7 +452,7 @@ function SpecialistsSection() {
           </div>
 
           {/* Support Team */}
-          <div className="flex-1 px-4 py-6 xl:p-8 rounded-2xl">
+          <div className="flex-1 px-4 py-4 md:py-6 xl:p-8 rounded-2xl">
             <div className="flex flex-col gap-1 mb-6">
               <h3 className="font-bold text-blue-700 text-[length:var(--text-h4)] leading-[1.35] tracking-[-0.5px]">
                 Support Team
@@ -534,8 +534,8 @@ function SpecialistsSection() {
             </div>
           </div>
 
-          {/* SNUH Logo — 모바일 하단, 데스크탑 오른쪽 */}
-          <div className="bg-white rounded-full shadow-md shrink-0 size-[124px] flex items-center justify-center">
+          {/* SNUH Logo — 모바일 상단, 데스크탑 오른쪽 */}
+          <div className="order-first md:order-last bg-white rounded-full shadow-md shrink-0 size-[124px] flex items-center justify-center">
             <div className="relative w-[92px] h-[46px] overflow-hidden">
               <Image
                 src="/assets/about/snuh-logo.png"
@@ -863,6 +863,7 @@ export default function AboutPage() {
           subtitle="The World's Destination for Mesh-Free Hernia Surgery"
           rounded="sm"
           padding="default"
+          titleClassName="whitespace-nowrap !text-[28px] md:!text-[length:var(--text-lora-h1)]"
         />
 
         <StatsBar />

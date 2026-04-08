@@ -6,10 +6,9 @@ import { usePathname } from "next/navigation";
 import { useConsultationModal } from "@/context/ConsultationModalContext";
 
 /* ─── Figma 에셋 경로 (public/assets/header/) ─────────────────── */
-const LOGO_MARK_1 = "/assets/header/logo-mark1.svg";
-const LOGO_MARK_2 = "/assets/header/logo-mark2.svg";
-const LOGO_MARK_3 = "/assets/header/logo-mark3.svg";
-const LOGO_TEXT   = "/assets/header/logo-text.svg";
+const LOGO_NEW_MARK     = "/assets/header/logo-new-mark.svg";
+const LOGO_NEW_GIBBEUM  = "/assets/header/logo-new-gibbeum.svg";
+const LOGO_NEW_HOSPITAL = "/assets/header/logo-new-hospital.svg";
 const ICON_BOOK   = "/assets/header/icon-book.svg";
 const ICON_VIDEO  = "/assets/header/icon-video.svg";
 const ICON_CHAT_1 = "/assets/header/icon-chat1.svg";
@@ -103,55 +102,35 @@ function IconClose({ size = 32 }: { size?: number }) {
 
 /**
  * Gibbeum 로고 (Figma 에셋 기반)
- * - desktop/tablet: 워드마크(144×28) + "KANG REPAIR HERNIA CENTER" 텍스트(141×7) = 145×44
- * - mobile: 워드마크만 (111×22, 텍스트 없음)
+ * - desktop/tablet: 276×25
+ * - mobile: 220×20 (80% 스케일)
  */
 function Logo({ mobile = false }: { mobile?: boolean }) {
-  if (mobile) {
-    // 모바일: 111×22, 로고 마크만 (3-part SVG)
-    return (
-      <div className="relative overflow-clip" style={{ width: 111, height: 22 }}>
-        <div className="absolute inset-[9.32%_77.72%_2.83%_0]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_1} />
-        </div>
-        <div className="absolute inset-[0_0_39.71%_27.24%]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_2} />
-        </div>
-        <div className="absolute inset-[76.17%_0.04%_-0.01%_28.23%]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_3} />
-        </div>
-      </div>
-    );
-  }
-
-  // 데스크탑/태블릿: 145×44, 마크(144×28) + 태그라인(141×7)
+  const scale = mobile ? 0.8 : 1;
+  const W = 276 * scale;
+  const H = 25 * scale;
   return (
-    <div className="relative" style={{ width: 145, height: 44 }}>
-      {/* 로고 마크 — top:0.34px, left:0.12px, 144×28 */}
+    <div className="relative shrink-0" style={{ width: W, height: H }}>
+      {/* 로고 마크 (smiley) */}
       <div
-        className="absolute overflow-clip"
-        style={{ left: 0.12, top: 0.34, width: 144, height: 28 }}
+        className="absolute -translate-y-1/2"
+        style={{ left: 0.14 * scale, top: "50%", width: 32.088 * scale, height: 24.599 * scale }}
       >
-        <div className="absolute inset-[9.32%_77.72%_2.83%_0]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_1} />
-        </div>
-        <div className="absolute inset-[0_0_39.72%_27.24%]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_2} />
-        </div>
-        <div className="absolute inset-[76.17%_0.04%_-0.01%_28.23%]">
-          <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_3} />
-        </div>
+        <img alt="" className="absolute block max-w-none size-full" src={LOGO_NEW_MARK} />
       </div>
-      {/* 태그라인 "KANG REPAIR HERNIA CENTER" — top:36.38px */}
+      {/* GIBBEUM */}
       <div
         className="absolute"
-        style={{ left: 0.8, top: 36.38, width: 141.756, height: 7.24 }}
+        style={{ left: 39 * scale, top: 3.18 * scale, width: 106.014 * scale, height: 18.08 * scale }}
       >
-        <img
-          alt="KANG REPAIR HERNIA CENTER"
-          className="block max-w-none size-full"
-          src={LOGO_TEXT}
-        />
+        <img alt="GIBBEUM HOSPITAL" className="absolute block max-w-none size-full" src={LOGO_NEW_GIBBEUM} />
+      </div>
+      {/* HOSPITAL */}
+      <div
+        className="absolute"
+        style={{ left: 154 * scale, top: 3 * scale, width: 122 * scale, height: 18 * scale }}
+      >
+        <img alt="" className="absolute block max-w-none size-full" src={LOGO_NEW_HOSPITAL} />
       </div>
     </div>
   );

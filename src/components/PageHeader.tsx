@@ -32,6 +32,8 @@ export type PageHeaderProps = {
    * - "vtall"    → xl: py-[101px] (Video Library, Cartoons)
    */
   padding?: "default" | "compact" | "tall" | "xtall" | "vtall";
+  /** Extra classes applied to the h1 title element */
+  titleClassName?: string;
 };
 
 const paddingMap: Record<NonNullable<PageHeaderProps["padding"]>, string> = {
@@ -49,6 +51,7 @@ export default function PageHeader({
   cta,
   rounded = "lg",
   padding = "default",
+  titleClassName,
 }: PageHeaderProps) {
   const { openModal } = useConsultationModal();
 
@@ -106,7 +109,7 @@ export default function PageHeader({
 
         {/* Title */}
         <h1
-          className="font-bold text-neutralgray-50 text-[length:var(--text-lora-h1)] text-center leading-[1.15] w-full"
+          className={`font-bold text-neutralgray-50 text-[length:var(--text-lora-h1)] text-center leading-[1.15] w-full${titleClassName ? ` ${titleClassName}` : ""}`}
           style={{ fontFamily: "var(--font-lora)" }}
         >
           {title}

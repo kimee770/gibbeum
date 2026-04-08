@@ -797,11 +797,27 @@ function RequestFormSection() {
                 <div className="flex flex-col md:flex-row gap-[24px] md:items-end w-full">
                   <div className="flex w-full md:flex-1 gap-[12px] items-end min-w-0">
                     <p className="font-bold text-neutralgray-900 text-[16px] leading-[24px] whitespace-nowrap shrink-0">Planned Surgery Date:</p>
-                    <LineInput className="flex-1 min-w-0" />
+                    <div className="relative flex-1 min-w-0 border-b border-neutralgray-400">
+                      <input
+                        type="date"
+                        className="w-full h-[33px] bg-transparent focus:outline-none text-neutralgray-900 text-[length:var(--text-body-m)] pl-[8px] pr-[36px] py-[5px] appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:w-[36px] [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                      />
+                      <div className="absolute right-[8px] top-1/2 -translate-y-1/2 pointer-events-none">
+                        <CalendarIcon />
+                      </div>
+                    </div>
                   </div>
                   <div className="flex w-full md:flex-1 gap-[12px] items-end min-w-0">
                     <p className="font-bold text-neutralgray-900 text-[16px] leading-[24px] whitespace-nowrap shrink-0">Preferred Screening Date:</p>
-                    <LineInput className="flex-1 min-w-0" />
+                    <div className="relative flex-1 min-w-0 border-b border-neutralgray-400">
+                      <input
+                        type="date"
+                        className="w-full h-[33px] bg-transparent focus:outline-none text-neutralgray-900 text-[length:var(--text-body-m)] pl-[8px] pr-[36px] py-[5px] appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:w-[36px] [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                      />
+                      <div className="absolute right-[8px] top-1/2 -translate-y-1/2 pointer-events-none">
+                        <CalendarIcon />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -841,7 +857,12 @@ function RequestFormSection() {
                   <p className="text-neutralgray-900 text-[length:var(--text-body-l)] leading-[1.45]">
                     Number of accompanying family members who want screening:
                   </p>
-                  <div className="border-b border-neutralgray-400 h-[29px] w-[96px] shrink-0" />
+                  <select className="border-b border-neutralgray-400 h-[29px] w-[96px] shrink-0 bg-transparent focus:outline-none text-neutralgray-900 text-[length:var(--text-body-m)] cursor-pointer appearance-none">
+                    <option value="">—</option>
+                    {Array.from({ length: 10 }, (_, i) => (
+                      <option key={i + 1} value={i + 1}>{i + 1}</option>
+                    ))}
+                  </select>
                 </div>
                 <p className="text-neutralgray-900 text-[length:var(--text-body-m)] leading-[1.35]">
                   (Same discounted prices apply to family members)

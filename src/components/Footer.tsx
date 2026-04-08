@@ -7,10 +7,10 @@ import { usePathname } from "next/navigation";
 import { useConsultationModal } from "@/context/ConsultationModalContext";
 
 /* ─── 에셋 경로 ─────────────────────────────────────── */
-// 로고 (헤더와 동일 SVG, 푸터 사이즈 187×36)
-const LOGO_MARK_1 = "/assets/header/logo-mark1.svg";
-const LOGO_MARK_2 = "/assets/header/logo-mark2.svg";
-const LOGO_MARK_3 = "/assets/header/logo-mark3.svg";
+// 로고
+const LOGO_NEW_MARK     = "/assets/header/logo-new-mark.svg";
+const LOGO_NEW_GIBBEUM  = "/assets/header/logo-new-gibbeum.svg";
+const LOGO_NEW_HOSPITAL = "/assets/header/logo-new-hospital.svg";
 
 // 유틸 아이콘
 const ICON_GLOBE      = "/assets/footer/icon-globe.svg";
@@ -45,20 +45,30 @@ const contactItems = [
 
 /* ─── 서브 컴포넌트 ──────────────────────────────────── */
 
-/** 푸터 로고 — 187×36 (mark1+2+3 한 컨테이너) */
-function FooterLogo() {
+/** 푸터 로고 내부 — scale 파라미터로 크기 조절 */
+function FooterLogoInner({ s }: { s: number }) {
   return (
-    <div className="relative overflow-clip shrink-0" style={{ width: 187, height: 36 }}>
-      <div className="absolute inset-[7.57%_77.69%_3%_0]">
-        <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_1} />
+    <div className="relative shrink-0" style={{ width: 276 * s, height: 25 * s }}>
+      <div className="absolute -translate-y-1/2" style={{ left: 0.14 * s, top: "50%", width: 32.088 * s, height: 24.599 * s }}>
+        <img alt="" className="absolute block max-w-none size-full" src={LOGO_NEW_MARK} />
       </div>
-      <div className="absolute inset-[0_0.26%_42.45%_27.65%]">
-        <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_2} />
+      <div className="absolute" style={{ left: 39 * s, top: 3.18 * s, width: 106.014 * s, height: 18.08 * s }}>
+        <img alt="GIBBEUM HOSPITAL" className="absolute block max-w-none size-full" src={LOGO_NEW_GIBBEUM} />
       </div>
-      <div className="absolute inset-[75.01%_0_-0.01%_27.97%]">
-        <img alt="" className="absolute block max-w-none size-full" src={LOGO_MARK_3} />
+      <div className="absolute" style={{ left: 154 * s, top: 3 * s, width: 122 * s, height: 18 * s }}>
+        <img alt="" className="absolute block max-w-none size-full" src={LOGO_NEW_HOSPITAL} />
       </div>
     </div>
+  );
+}
+
+/** 푸터 로고 — 모바일: 100%, 데스크탑(md+): 90% */
+function FooterLogo() {
+  return (
+    <>
+      <div className="md:hidden"><FooterLogoInner s={1} /></div>
+      <div className="hidden md:block"><FooterLogoInner s={0.9} /></div>
+    </>
   );
 }
 

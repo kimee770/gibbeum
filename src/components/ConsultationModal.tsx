@@ -222,28 +222,28 @@ export default function ConsultationModal() {
             </label>
 
             <button
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-white text-[length:var(--text-h6)] tracking-[-0.3px] transition-opacity hover:opacity-90"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full font-bold text-white text-[length:var(--text-h6)] tracking-[-0.3px] transition-opacity hover:opacity-90 whitespace-nowrap"
               style={{ background: "linear-gradient(to bottom, #0076f1, #0062c7)" }}
             >
-              Submit Free Consultation Request
+              Submit Consultation Request
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/modal/icon-send.svg" alt="" className="size-5" />
+              <img src="/assets/modal/icon-send.svg" alt="" className="size-5 hidden md:block" />
             </button>
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-4 items-center justify-center">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-center justify-center">
             <TrustBadge label="No obligations" />
             <TrustBadge label="24-hour response" />
             <TrustBadge label="Completely confidential" />
           </div>
 
           {/* Direct contact */}
-          <div className="border-t border-neutralgray-300 pt-6 flex flex-col gap-4 items-center">
+          <div className="border-t border-neutralgray-300 pt-6 flex flex-col gap-6 items-center">
             <p className="font-bold text-neutralgray-900 text-[length:var(--text-body-l)] leading-[1.45] text-center">
               Or contact us directly:
             </p>
-            <div className="flex flex-wrap gap-4 items-center justify-center">
+            <div className="flex flex-col gap-6 items-center">
               <a
                 href="mailto:internationalcenter@gibbeum.com"
                 className="flex gap-2 items-center text-blue-700 text-[14px] hover:underline"
@@ -252,15 +252,13 @@ export default function ConsultationModal() {
                 <img src="/assets/modal/icon-email.svg" alt="" className="size-4" />
                 internationalcenter@gibbeum.com
               </a>
-              <span className="text-neutralgray-500 text-[14px]">|</span>
-              <a
-                href="tel:025701234"
-                className="flex gap-2 items-center text-blue-700 text-[14px] hover:underline"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/modal/icon-phone.svg" alt="" className="size-4" />
-                02-570-1234
-              </a>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/modal/whatsapp-qr.png"
+                alt="WhatsApp QR Code"
+                className="rounded-[4px]"
+                style={{ width: 153, height: 153 }}
+              />
             </div>
           </div>
         </div>
