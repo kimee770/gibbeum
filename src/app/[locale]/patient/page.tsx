@@ -1002,14 +1002,14 @@ function StepsSection() {
                   </div>
                 </div>
                 {/* WhatsApp QR */}
-                <div className="relative w-[160px] h-[184px] rounded-lg overflow-hidden shadow-sm shrink-0">
+                <a href="https://wa.me/821099479530" target="_blank" rel="noopener noreferrer" className="relative w-[160px] h-[184px] rounded-lg overflow-hidden shadow-sm shrink-0 block">
                   <Image
                     src="/assets/patient/whatsapp-qr.png"
                     alt="WhatsApp QR Code"
                     fill
                     className="object-cover"
                   />
-                </div>
+                </a>
               </div>
             </div>
           </div>

@@ -252,13 +252,15 @@ export default function ConsultationModal() {
                 <img src="/assets/modal/icon-email.svg" alt="" className="size-4" />
                 internationalcenter@gibbeum.com
               </a>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/modal/whatsapp-qr.png"
-                alt="WhatsApp QR Code"
-                className="rounded-[4px]"
-                style={{ width: 153, height: 153 }}
-              />
+              <a href="https://wa.me/821099479530" target="_blank" rel="noopener noreferrer">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/modal/whatsapp-qr.png"
+                  alt="WhatsApp QR Code"
+                  className="rounded-[4px]"
+                  style={{ width: 153, height: 153 }}
+                />
+              </a>
             </div>
           </div>
         </div>
