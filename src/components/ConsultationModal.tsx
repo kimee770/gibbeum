@@ -141,7 +141,7 @@ export default function ConsultationModal() {
       >
         {/* ── Header (스크롤 영역 밖, 항상 보임) ── */}
         <div
-          className="flex items-center justify-between px-6 py-6 rounded-t-[16px] shrink-0"
+          className="relative px-6 py-6 rounded-t-[16px] shrink-0"
           style={{ background: "linear-gradient(to bottom, #0047ab, #003380)" }}
         >
           <div className="flex flex-col gap-2">
@@ -154,7 +154,7 @@ export default function ConsultationModal() {
           </div>
           <button
             onClick={closeModal}
-            className="size-10 flex items-center justify-center rounded-[16px] hover:bg-white/10 transition-colors shrink-0"
+            className="absolute top-3 right-3 size-10 flex items-center justify-center rounded-[16px] hover:bg-white/10 transition-colors"
             aria-label="Close"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
